@@ -1,0 +1,148 @@
+<template>
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>    
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Opportunity</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                       
+
+                         <!--<p>Record Id : {recId}</p>-->
+                         
+                         <div class="slds-p-bottom_large slds-p-left_large" style="width:500px">
+                            <lightning-record-edit-form
+
+                                id="recordViewForm"
+                                record-id={recId}
+                                object-api-name="Opportunity"
+                                onsubmit={handleSubmit}>
+                                <div class="slds-grid slds-gutters">
+                                <lightning-input-field field-name="Name"></lightning-input-field>
+                                <lightning-input-field field-name="StageName"></lightning-input-field>
+                            </div>
+                            <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="CloseDate"></lightning-input-field>
+                            <lightning-input-field field-name="Amount"></lightning-input-field>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="Primary_Contact__c"></lightning-input-field>
+                            <lightning-input-field field-name="Lead_Writer__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="Release_date__c"></lightning-input-field>
+                            <lightning-input-field field-name="Cost_Center__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="PDF_Application_type__c"></lightning-input-field>
+                            <lightning-input-field field-name="Overhead_Recovery__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="Donor_of_Funding_source__c"></lightning-input-field>
+                            <lightning-input-field field-name="Opportunity_Type__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <lightning-input-field field-name="Expected_Award_Mechanism__c"></lightning-input-field>
+                            <lightning-input-field field-name="Request_From_Information_ROI_Date__c"></lightning-input-field>
+                        </div>
+                        
+                                <!-- <lightning-combobox name="ThematicArea" label="Thematic Area" value={value} options={optionsThematicArea} onchange={handleChange}></lightning-combobox> -->
+                                <lightning-dual-listbox name="ArithematicArea"
+                                label="Thematic Area"
+                                source-label="Available"
+                                selected-label="Selected"
+                                field-level-help="Select your preferred Arithematic Area"
+                                options={lstArithematicArea}
+                                onchange={handleChange}></lightning-dual-listbox>
+
+                                    <div class="slds-m-vertical_medium">
+                                        
+                                        <template if:true={democracy}>
+                                            <div class="slds-grid slds-gutters">
+                                                <lightning-input-field field-name="Democracy__c"  onchange={handleChangeEvent}></lightning-input-field>
+                                                <!-- <lightning-input-field field-name="DDisasterisaster__c"></lightning-input-field> -->
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="slds-m-vertical_medium">
+                                        
+                                        <template if:true={disaster}>
+                                            <div class="slds-grid slds-gutters">
+                                                <!-- <lightning-input-field field-name="Democracy__c"></lightning-input-field> -->
+                                                <lightning-input-field field-name="DDisasterisaster__c"  onchange={handleChangeEvent}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="slds-m-vertical_medium">
+                                        
+                                        <template if:true={economy}>
+                                            <div class="slds-grid slds-gutters">
+                                                <lightning-input-field field-name="Economy__c" onchange={handleChangeEvent}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
+                                   <div class="slds-m-vertical_medium">
+                                        
+                                        <template if:true={economic}>
+                                            <div class="slds-grid slds-gutters">
+                                                <lightning-input-field field-name="Economic__c" onchange={handleChangeEvent}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
+                                      <div class="slds-m-vertical_medium">
+                                        <template if:true={education}>
+                                            <div class="slds-grid slds-gutters">
+                                                <lightning-input-field field-name="Education__c" onchange={handleChangeEvent}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
+                                   <div class="slds-m-vertical_medium">
+                                        <template if:true={political}>
+                                            <div class="slds-grid slds-gutters">
+                                                <lightning-input-field field-name="Political__c" onchange={handleChangeEvent}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+
+                                <lightning-input-field field-name="Total_Country_Percentage__c" value={percArithmaticArea}></lightning-input-field>
+                                <!-- <lightning-input-field type="number" name="TotalPercent" label="Total Percent" value={percArithmaticArea} ></lightning-input-field> -->
+                                
+                                <div class="slds-grid slds-gutters">
+                                    <lightning-input-field field-name="PDF_Application_type__c"></lightning-input-field>
+                                    <lightning-input-field field-name="Release_date__c"></lightning-input-field>
+                                </div>
+                                <div class="slds-grid slds-gutters">
+                                    <lightning-input-field field-name="Sensitive_Opportunity__c"></lightning-input-field>
+                                    <lightning-input-field field-name="Trustee_Referral__c"></lightning-input-field>
+                                </div>
+                                <div class="slds-grid slds-gutters">
+                                    <lightning-input-field field-name="Regional_opportunity__c"></lightning-input-field>
+                                    <lightning-input-field field-name="Primary_Contact__c"></lightning-input-field>
+                                </div>
+                                <div class="slds-m-top_medium">
+                                    <lightning-button variant="brand" type="submit" name="save" label="Save"></lightning-button>
+                                    <!--<button class="slds-button slds-button_neutral" label=”Cancel” type=”cancel” onclick={handleCancel}>Cancel</button>-->
+                                </div>
+                                <!--<input type="submit" class="hidden" />-->
+                                <!-- <lightning-button class="slds-m-top_medium" type="submit" variant="brand" label="Update"></lightning-button> -->
+                            </lightning-record-edit-form>
+                         </div>
+                    </div>
+
+                    <!-- <footer class="slds-modal__footer">
+                        <button variant="brand" onclick={closeModal}>Cancel</button>\
+                    
+                    </footer> -->
+
+                </div>
+            </section>
+        </template>
+</template>

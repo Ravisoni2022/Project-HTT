@@ -1,0 +1,3 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId,lightning:actionOverride" access="global" >
+    <c:padfcomponent name="padfcomponent"  />
+  </aura:component>
